@@ -10,3 +10,7 @@
 
 * pyqt5 모듈 설치 (brew install pyqt5)
 * 파이썬 파일 실행 (python calculator_main.py)
+
+
+## Reference
+*  https://studyingrabbit.tistory.com/23 
