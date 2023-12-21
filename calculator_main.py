@@ -108,28 +108,28 @@ class Main(QDialog):
     #################
 
     def number_button_clicked(self, num):
-        equation = self.equation.text()
+        equation = self.results.text()
         equation += str(num)
-        self.equation.setText(equation)
+        self.results.setText(equation)
 
     def button_operation_clicked(self, operation):
-        equation = self.equation.text()
+        equation = self.results.text()
         equation += operation
-        self.equation.setText(equation)
+        self.results.setText(equation)
 
     def button_equal_clicked(self):
-        equation = self.equation.text()
+        equation = self.results.text()
         solution = eval(equation)
-        self.solution.setText(str(solution))
+        self.results.setText(str(solution))
 
     def button_clear_clicked(self):
-        self.equation.setText("")
-        self.solution.setText("")
+        self.results.setText("")
+        self.results.setText("")
 
     def button_backspace_clicked(self):
-        equation = self.equation.text()
+        equation = self.results.text()
         equation = equation[:-1]
-        self.equation.setText(equation)
+        self.results.setText(equation)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
