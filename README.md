@@ -11,6 +11,11 @@
 * pyqt5 모듈 설치 (brew install pyqt5)
 * 파이썬 파일 실행 (python calculator_main.py)
 
+## 추가 작업 사항
+
+* 기존의 UI를 windows 계산기와 비슷한 형태로 구현
+* QGridLayout으로만 구현
+* %, CE, C, 1/x, x^2, √x, +/- 버튼 추가
 
 ## Reference
 *  https://studyingrabbit.tistory.com/23 
