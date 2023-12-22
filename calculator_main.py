@@ -78,7 +78,7 @@ class Main(QDialog):
         button_division.clicked.connect(lambda state, operation = "/": self.button_operation_clicked(operation))
 
         button_percent.clicked.connect(self.button_percent_clicked)
-        button_CE.clicked.connect(self.button_clear_clicked)
+        button_CE.clicked.connect(self.button_clear_entry_clicked)
         button_C.clicked.connect(self.button_clear_clicked)
         button_reverse.clicked.connect(self.button_reverse_clicked)
         button_square.clicked.connect(self.button_square_clicked)
@@ -140,11 +140,20 @@ class Main(QDialog):
         equation = self.temp_equation
         solution = eval(equation)
         self.results.setText(str(solution))
-        self.temp_equation = ""
+        self.temp_equation = str(solution)
 
     def button_clear_clicked(self):
         self.results.setText("")
-        self.results.setText("")
+        self.temp_equation = ""
+
+    def button_clear_entry_clicked(self):
+        current_display = self.results.text()  # 현재 디스플레이에 표시된 숫자를 가져옵니다.
+
+        # self.temp_equation에서 현재 디스플레이에 표시된 숫자를 찾아 제거합니다.
+        if self.temp_equation.endswith(current_display):
+            self.temp_equation = self.temp_equation[:-len(current_display)]
+
+        self.results.setText("")  # 현재 디스플레이를 지웁니다.
 
     def button_percent_clicked(self):
         equation = float(self.results.text())
