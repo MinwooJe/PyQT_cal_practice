@@ -21,6 +21,7 @@ class Main(QDialog):
 
         ### 수식 입력과 답 출력을 위한 LineEdit 위젯 생성
         self.results = QLineEdit("")
+        self.results.setReadOnly(True)
 
         ### layout_operation 서브 위젯 생성
         button_backspace = QPushButton("Backspace")
@@ -193,8 +194,11 @@ class Main(QDialog):
 
     def button_root_clicked(self):
         equation = self.results.text()
-        equation = math.sqrt(eval(equation))
-        self.results.setText(str(equation))
+        try:
+            equation = math.sqrt(eval(equation))
+            self.results.setText(str(equation))
+        except ValueError:
+            self.results.setText("루트안에 음수가 들어갈 수 없습니다.")
 
 
 if __name__ == '__main__':
