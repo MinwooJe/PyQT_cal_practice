@@ -39,6 +39,7 @@ class Main(QDialog):
         button_square = QPushButton("x^2")
         button_root = QPushButton("√x")
 
+
         ## 위젯 추가 ##
 
         ### layout_additional_operation 위젯 추가
@@ -84,9 +85,6 @@ class Main(QDialog):
         button_reverse.clicked.connect(self.button_reverse_clicked)
         button_square.clicked.connect(self.button_square_clicked)
         button_root.clicked.connect(self.button_root_clicked)
-
-
-        ### =, clear, backspace 버튼을 layout_clear_equal 레이아웃에 추가
 
         ### 숫자 버튼 생성하고, layout_number 레이아웃에 추가
         ### 각 숫자 버튼을 클릭했을 때, 숫자가 수식창에 입력 될 수 있도록 시그널 설정
@@ -165,13 +163,12 @@ class Main(QDialog):
         self.temp_equation = ""
 
     def button_clear_entry_clicked(self):
-        current_display = self.results.text()  # 현재 디스플레이에 표시된 숫자를 가져옵니다.
+        current_display = self.results.text()
 
-        # self.temp_equation에서 현재 디스플레이에 표시된 숫자를 찾아 제거합니다.
         if self.temp_equation.endswith(current_display):
             self.temp_equation = self.temp_equation[:-len(current_display)]
 
-        self.results.setText("")  # 현재 디스플레이를 지웁니다.
+        self.results.setText("") 
 
     def button_percent_clicked(self):
         equation = float(self.results.text())
