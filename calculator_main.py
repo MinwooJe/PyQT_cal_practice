@@ -1,5 +1,6 @@
 import sys
 from PyQt5.QtWidgets import *
+import math
 
 class Main(QDialog):
     def __init__(self):
@@ -67,7 +68,6 @@ class Main(QDialog):
 
         ### =, clear, backspace 버튼 클릭 시 시그널 설정
         button_equal.clicked.connect(self.button_equal_clicked)
-        button_CE.clicked.connect(self.button_clear_clicked)
         button_backspace.clicked.connect(self.button_backspace_clicked)
 
         ### 사칙연산 버튼을 클릭했을 때, 각 사칙연산 부호가 수식창에 추가될 수 있도록 시그널 설정
@@ -75,6 +75,14 @@ class Main(QDialog):
         button_minus.clicked.connect(lambda state, operation = "-": self.button_operation_clicked(operation))
         button_multiple.clicked.connect(lambda state, operation = "*": self.button_operation_clicked(operation))
         button_division.clicked.connect(lambda state, operation = "/": self.button_operation_clicked(operation))
+
+        button_percent.clicked.connect(self.button_percent_clicked)
+        button_CE.clicked.connect(self.button_clear_clicked)
+        button_C.clicked.connect(self.button_clear_clicked)
+        button_reverse.clicked.connect(self.button_reverse_clicked)
+        button_square.clicked.connect(self.button_square_clicked)
+        button_root.clicked.connect(self.button_root_clicked)
+
 
         ### =, clear, backspace 버튼을 layout_clear_equal 레이아웃에 추가
 
@@ -117,6 +125,11 @@ class Main(QDialog):
         equation += operation
         self.results.setText(equation)
 
+    def button_backspace_clicked(self):
+        equation = self.results.text()
+        equation = equation[:-1]
+        self.results.setText(equation)
+
     def button_equal_clicked(self):
         equation = self.results.text()
         solution = eval(equation)
@@ -126,10 +139,30 @@ class Main(QDialog):
         self.results.setText("")
         self.results.setText("")
 
-    def button_backspace_clicked(self):
+    def button_percent_clicked(self):
+        equation = float(self.results.text())
+        equation = equation * 0.01
+        self.results.setText(str(equation))
+
+    def button_reverse_clicked(self):
+        equation = float(self.results.text())
+
+        if math.isfinite(1 / equation):
+            self.results.setText(str(1/equation))
+        else:
+            self.results.setText("0으로 나눌 수 없습니다.")
+            return None
+
+    def button_square_clicked(self):
+        equation = eval(self.results.text())
+        equation = equation * equation
+        self.results.setText(str(equation))
+
+    def button_root_clicked(self):
         equation = self.results.text()
-        equation = equation[:-1]
-        self.results.setText(equation)
+        equation = math.sqrt(eval(equation))
+        self.results.setText(str(equation))
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
