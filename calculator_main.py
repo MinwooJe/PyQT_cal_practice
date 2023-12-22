@@ -105,9 +105,9 @@ class Main(QDialog):
         button_dot.clicked.connect(lambda state, num = ".": self.number_button_clicked(num))
         layout_number.addWidget(button_dot, 3, 2)
 
-        button_double_zero = QPushButton("+/-")
-        button_double_zero.clicked.connect(lambda state, num = "+/-": self.number_button_clicked(num))
-        layout_number.addWidget(button_double_zero, 3, 0)
+        button_change_sign = QPushButton("+/-")
+        button_change_sign.clicked.connect(lambda state: self.button_change_sign_clicked())
+        layout_number.addWidget(button_change_sign, 3, 0)
 
         self.setLayout(main_layout)
         self.show()
@@ -121,6 +121,23 @@ class Main(QDialog):
         equation = self.results.text()
         equation += str(num)
         self.results.setText(equation)
+
+    def button_change_sign_clicked(self):
+        last_number = ""
+        for char in reversed(self.temp_equation):
+            if char.isdigit() or char == '.' or (char == '-' and last_number):
+                last_number = char + last_number
+            else:
+                break
+
+        if last_number:
+            if last_number.startswith("-"):
+                changed_number = last_number[1:]
+            else:
+                changed_number = "-" + last_number
+
+            self.temp_equation = self.temp_equation[::-1].replace(last_number[::-1], changed_number[::-1], 1)[::-1]
+            self.results.setText(changed_number)
 
     def button_operation_clicked(self, operation):
         self.temp_equation += operation
