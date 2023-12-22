@@ -6,6 +6,7 @@ class Main(QDialog):
     def __init__(self):
         super().__init__()
         self.init_ui()
+        self.temp_equation = ""
 
     def init_ui(self):
         main_layout = QGridLayout()
@@ -116,24 +117,30 @@ class Main(QDialog):
     #################
 
     def number_button_clicked(self, num):
+        self.temp_equation += str(num)
         equation = self.results.text()
         equation += str(num)
         self.results.setText(equation)
 
     def button_operation_clicked(self, operation):
-        equation = self.results.text()
-        equation += operation
-        self.results.setText(equation)
+        self.temp_equation += operation
+        self.results.setText("")
 
     def button_backspace_clicked(self):
         equation = self.results.text()
         equation = equation[:-1]
+
+        # self.temp_equation의 마지막 문자가 숫자일 경우에만 제거(연산자일 경우 삭제하지 않음.)
+        if self.temp_equation and self.temp_equation[-1].isdigit():
+            self.temp_equation = self.temp_equation[:-1]
+
         self.results.setText(equation)
 
     def button_equal_clicked(self):
-        equation = self.results.text()
+        equation = self.temp_equation
         solution = eval(equation)
         self.results.setText(str(solution))
+        self.temp_equation = ""
 
     def button_clear_clicked(self):
         self.results.setText("")
